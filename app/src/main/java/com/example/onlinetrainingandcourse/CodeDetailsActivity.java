@@ -130,7 +130,7 @@ public class CodeDetailsActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             String videoUrl = params[0];
-            // Perform background tasks here (e.g., load video from network)
+            // Perform background tasks here
             return videoUrl;
         }
 
