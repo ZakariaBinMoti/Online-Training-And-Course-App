@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.FirebaseApp;
 
 //public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.viewholder> {
 public class HomeAdapter extends FirebaseRecyclerAdapter<HomeModel, HomeAdapter.viewholder> {
@@ -45,10 +46,12 @@ public class HomeAdapter extends FirebaseRecyclerAdapter<HomeModel, HomeAdapter.
             holder.homeratings.setText("N/A");
         }
         if (model.getPicurl() != null) {
+            FirebaseApp.initializeApp(holder.homeImage.getContext());
+
             Glide.with(holder.homeImage.getContext()).load(model.getPicurl()).into(holder.homeImage);
         } else {
             // Optionally, you can set a placeholder or handle the case where the URL is null.
-            Glide.with(holder.homeImage.getContext()).load(R.drawable.ic_launcher_background).into(holder.homeImage);
+            Glide.with(holder.homeImage.getContext()).load(R.drawable.java).into(holder.homeImage);
         }
 
 

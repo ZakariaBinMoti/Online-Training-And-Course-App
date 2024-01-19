@@ -118,6 +118,30 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        homePopularbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this,Popular.class);
+                startActivity(intent);
+            }
+        });
+
+        homeNewestbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this,Newest.class);
+                startActivity(intent);
+            }
+        });
+
+        homeAdvancebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, Advanace.class);
+                startActivity(intent);
+            }
+        });
+
 
         //card..got this code from firebase documentation..
         //https://firebase.google.com/docs/database/android/read-and-write

@@ -3,7 +3,9 @@ package com.example.onlinetrainingandcourse;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -39,6 +41,19 @@ public class CodeDetailsActivity extends AppCompatActivity {
         ImageButton playButton = findViewById(R.id.playButton);
         ImageButton pauseButton = findViewById(R.id.pauseButton);
 
+//        enrollButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(CodeDetailsActivity.this, SubscriptionActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+
+        enrollButton.setOnClickListener(v -> {
+            Intent intent = new Intent(CodeDetailsActivity.this, SubscriptionActivity.class);
+            startActivity(intent);
+        });
+
 
         Intent intent = getIntent();
 
@@ -55,9 +70,76 @@ public class CodeDetailsActivity extends AppCompatActivity {
         courseDescriptionTextView.setText(description);
 
         // Load video URL into VideoView
-        if (videourl != null && !videourl.isEmpty()) {
-            courseVideoView.setVideoPath(videourl);
-            courseVideoView.start();
+//        if (videourl != null && !videourl.isEmpty()) {
+//            courseVideoView.setVideoPath(videourl);
+//            courseVideoView.start();
+//        }
+
+//        if (videourl != null && !videourl.isEmpty()) {
+//            courseVideoView.setVideoPath(videourl);
+//            courseVideoView.start();
+//        }
+//
+//        playButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Start playing the video
+//                if (!courseVideoView.isPlaying()) {
+//                    courseVideoView.start();
+//                    playButton.setVisibility(View.GONE);
+//                    pauseButton.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
+//
+//        pauseButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Pause the video
+//                if (courseVideoView.isPlaying()) {
+//                    courseVideoView.pause();
+//                    pauseButton.setVisibility(View.GONE);
+//                    playButton.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
+
+        // Load video URL into VideoView using AsyncTask
+        new LoadVideoTask().execute(videourl);
+
+        playButton.setOnClickListener(v -> {
+            // Start playing the video
+            if (!courseVideoView.isPlaying()) {
+                courseVideoView.start();
+                playButton.setVisibility(View.GONE);
+                pauseButton.setVisibility(View.VISIBLE);
+            }
+        });
+
+        pauseButton.setOnClickListener(v -> {
+            // Pause the video
+            if (courseVideoView.isPlaying()) {
+                courseVideoView.pause();
+                pauseButton.setVisibility(View.GONE);
+                playButton.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private class LoadVideoTask extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... params) {
+            String videoUrl = params[0];
+            // Perform background tasks here
+            return videoUrl;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            // This method is executed on the main thread, so update UI components here
+            if (result != null && !result.isEmpty()) {
+                courseVideoView.setVideoPath(result);
+            }
         }
 
 
